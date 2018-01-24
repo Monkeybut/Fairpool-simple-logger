@@ -9,6 +9,8 @@ I run this on a linux machine in AWS that is initiated hourly via a cron job. Fo
 
 It can be run at your own schedule. A faster timeframe would give you a better picture of your hashing speeds but I'm more concerned with coin growth and total network performance than hash rates. 
 
+Sumokoin donations are not expected but welcome at: SuboK3RBj8BU4bVTQBwE1pXhszkfrRGn53CFfE7Usf2YbdNhrAGqDcDHTBGWbFvzjzRkFs7bVLFf5cmRFhrsJy25ALsYhVxemo
+
 ### Future plans
 
 I'm open to suggestions if anybody has any opinions or requests that they think would make it better or more powerful. I asked the fairpool admin's for permission to release this and they were fine with it with the information that they may need to change the API at some point. They didn't see that happenning but I would likely update this as well if I'm still using it. 
@@ -20,3 +22,4 @@ The way I've built this I don't think it would handle multiple miners on one add
 ### License
 
 Released under the Apache license with no implied guarantee. 
+
