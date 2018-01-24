@@ -26,6 +26,8 @@ csv_output = True
 #Enter Address between two hashes 'ADDRESS'
 address = 'FILL IN ADDRESS HERE'
 
+# API address
+api_address = 'https://sumo.fairpool.cloud/api/network'
 # -----------------------------------------------------------------------------------
 # -----------------------------------------------------------------------------------
 # -------------------------------  Begin Definitions  -------------------------------
@@ -53,7 +55,7 @@ class get_stats():
 
     def pull_network(self):
         try:
-            r = requests.get('https://sumo.fairpool.cloud/api/network')
+            r = requests.get(api_address)
             if r.status_code == 200:
                 returninfo = r.text
                 jsoninfo = json.loads(returninfo)
@@ -175,11 +177,3 @@ if sqlitedb_output == True:
 if csv_output == True:
     miningcsv.write_miner(miner_data)
     miningcsv.write_network(network_data)
-
-
-
-
-
-
-
-
