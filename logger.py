@@ -1,4 +1,4 @@
-
+#!/usr/bin/python
 #---------------- Instructions ------------------#
 # This is setup to run straight through and stop after making one pull.
 # I use this as a cron job on a linux server to run several times a day.
