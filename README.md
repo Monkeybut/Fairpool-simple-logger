@@ -20,9 +20,11 @@ Sumokoin donations are not expected but welcome at: SuboK3RBj8BU4bVTQBwE1pXhszkf
 
 I'm open to suggestions if anybody has any opinions or requests that they think would make it better or more powerful. I asked the fairpool admin's for permission to release this and they were fine with it with the information that they may need to change the API at some point. They didn't see that happenning but I would likely update this as well if I'm still using it. 
 
-Going forward I'd like to build a web UI possibly with graphs to show current and projected growth as well as seperate miners actions. This is low priority unless someone really wanted this.
-
 The way I've built this I don't think it would handle multiple miners on one address very well. I only have one currently on the same address so I can't confirm its behavior. Its a dam simple script so take it with a grain of salt. I plan to fix this later.
+
+### Web UI
+
+I've slowly started building a web UI. Still in development and testing but fairly straightforward app built using flask. This utilizes the sqlite db so that needs to be enabled in the main logging script. 
 
 ### License
 
