@@ -16,15 +16,28 @@ It can be run at your own schedule. A faster timeframe would give you a better p
 Sumokoin donations are not expected but welcome at: SuboK3RBj8BU4bVTQBwE1pXhszkfrRGn53CFfE7Usf2YbdNhrAGqDcDHTBGWbFvzjzRkFs7bVLFf5cmRFhrsJy25ALsYhVxemo
 
 
+### Web UI
+
+I've slowly started building a web UI. Still in development and testing but fairly straightforward app built using flask. This utilizes the sqlite db so that needs to be enabled in the main logging script. I'll add instructions for a detailed setup soon. 
+
+##### Not so detailed instructions for WebUI setup
+
+Set ```sqlitedb_output = True``` from false to True inside ```logger.py```. 
+Configure it to run every hour (more or less). One suggestion is via a crontab.
+Configure nginx as a front end with redirection to flask port 5000. I would suggest using LetsEncrypt to configure SSL. 
+Configure supervisor to start flask.
+Ensure whatever host you use has ports 80/443 allowed through your firewall. 
+
+
+
 ### Future plans
 
 I'm open to suggestions if anybody has any opinions or requests that they think would make it better or more powerful. I asked the fairpool admin's for permission to release this and they were fine with it with the information that they may need to change the API at some point. They didn't see that happenning but I would likely update this as well if I'm still using it. 
 
 The way I've built this I don't think it would handle multiple miners on one address very well. I only have one currently on the same address so I can't confirm its behavior. Its a dam simple script so take it with a grain of salt. I plan to fix this later.
 
-### Web UI
+With the addition of the UI I will continue to add features and better reporting. Additionally I'd like to get multiple miners configured better. 
 
-I've slowly started building a web UI. Still in development and testing but fairly straightforward app built using flask. This utilizes the sqlite db so that needs to be enabled in the main logging script. 
 
 ### License
 
