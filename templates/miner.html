@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mining History</title>
+       <script src='static/Chart.min.js'></script>
+</head>
+<body align="center">
+
+<h1>Fairpool Mining History</h1>
+
+<h3>Miner History</h3>
+
+<table border="1" align="center">
+    <tr><td>Entry</td><td>Miner Name</td><td>Hash Rate</td><td>Coins</td><td>UTC Time</td></tr>
+
+{% for row in data %}
+    <tr>
+      <td>{{ row[0] }}</td>
+      <td>{{ row[1] }}</td>
+      <td>{{ row[2] }}</td>
+      <td>{{ row[3][0:7] }}</td>
+      <td>{{ row[4][11:16] }}</td>
+    </tr>
+{% endfor %}
+    </table>
+
+<br>
+
+<h3>Coin Growth</h3>
+<!-- bar chart canvas element -->
+<canvas id="chart" width="600" height="400"></canvas>
+
+<script>
+
+   // line chart data
+   var barData = {
+   labels : [{% for item in labels %}
+                  "{{item}}",
+              {% endfor %}],
+   datasets : [
+      {
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            bezierCurve : false,
+            data : [{% for item in values %}
+                      {{item}},
+                    {% endfor %}]
+      }]
+   }
+
+    Chart.defaults.global.animationSteps = 50;
+    Chart.defaults.global.tooltipYPadding = 16;
+    Chart.defaults.global.tooltipCornerRadius = 0;
+    Chart.defaults.global.tooltipTitleFontStyle = "normal";
+    Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+    Chart.defaults.global.animationEasing = "easeOutBounce";
+    Chart.defaults.global.responsive = false;
+    Chart.defaults.global.scaleLineColor = "black";
+    Chart.defaults.global.scaleFontSize = 16;
+
+   // get bar chart canvas
+   var mychart = document.getElementById("chart").getContext("2d");
+
+   steps = {{ steps }}
+   max = {{ max }}
+   // draw bar chart
+   var LineChartDemo = new Chart(mychart).Line(barData, {
+        scaleOverride: true,
+        scaleSteps: steps,
+        scaleStepWidth: Math.ceil(max / steps),
+        scaleStartValue: 0,
+        scaleShowVerticalLines: true,
+        scaleShowGridLines : true,
+        barShowStroke : true,
+        scaleShowLabels: true,
+        bezierCurve: false,
+
+   });
+
+
+</script>
+
+<br>
+
+<h3>Network History</h3>
+
+<table border="1" align="center">
+    <tr><td>Entry</td><td>Difficulty</td><td>Network Hash</td><td>Block Height</td><td>UTC Time</td></tr>
+
+{% for row in network %}
+    <tr>
+      <td>{{ row[0] }}</td>
+      <td>{{ row[1] }}</td>
+      <td>{{ row[2] }}</td>
+      <td>{{ row[3] }}</td>
+      <td>{{ row[4] }}</td>
+    </tr>
+{% endfor %}
+    </table>
+
+<br><div>Website built using flask. <br> Thanks to the flask team for their great tool and awesome documentation. </div>
+
+</body>
+</html>
