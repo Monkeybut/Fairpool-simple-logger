@@ -20,7 +20,7 @@ import json
 import datetime
 
 # Select the outputs you would like
-sqlitedb_output = False
+sqlitedb_output = True
 csv_output = True
 
 #Enter Address between two hashes 'ADDRESS'
@@ -91,27 +91,40 @@ class mining_history_db():
         # We can also close the connection if we are done with it.
         # Just be sure any changes have been committed or they will be lost.
         conn.close()
+        self.cursor.close()
 
     def insert_network(self, network):
         time = datetime.datetime.now()
+        self.conn = sqlite3.connect('mining_history.db')
+
         # Insert a row of data
         self.cursor.execute("INSERT INTO network VALUES (?,?,?,?,?)",
                             (None, str(network[0]), str(network[1]), str(network[2]), time))
 
         # Save (commit) the changes
         self.conn.commit()
+        self.conn.close()
+        print('update network')
+
         return True
 
 
     def insert_miner(self, miner):
         time = datetime.datetime.now()
+        self.conn = sqlite3.connect('mining_history.db')
+
         # Insert a row of data
         self.cursor.execute("INSERT INTO miners VALUES (?, ?,?,?,?)",
                             (None, str(miner[0]), str(miner[1]), str(miner[2]), time))
 
         # Save (commit) the changes
         self.conn.commit()
+        self.conn.close()
+        print('update miner')
         return True
+
+    def close_db(self):
+        conn.close()
 
 
 class mining_csv():
@@ -177,3 +190,4 @@ if sqlitedb_output == True:
 if csv_output == True:
     miningcsv.write_miner(miner_data)
     miningcsv.write_network(network_data)
+
