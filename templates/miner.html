@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+    
+<style type="text/css">
+td
+{
+    padding:0 5px 0 15px;
+}
+</style>
+
 <head>
     <meta charset="UTF-8">
     <title>Mining History</title>
@@ -13,17 +21,18 @@
 
 <table border="1" align="center">
     <tr><td>Entry</td><td>Miner Name</td><td>Hash Rate</td><td>Coins</td><td>UTC Time</td></tr>
-
 {% for row in data %}
-    <tr>
-      <td>{{ row[0] }}</td>
-      <td>{{ row[1] }}</td>
-      <td>{{ row[2] }}</td>
-      <td>{{ row[3][0:7] }}</td>
-      <td>{{ row[4][11:16] }}</td>
-    </tr>
+    
+        <tr>
+          <td> {{ row[0] }} </td>
+          <td> {{ row[1] }} </td>
+          <td> {{ row[2] }} </td>
+          <td> {{ row[3]|round(4, 'ceil') }} </td>
+          <td> {{ row[4][11:16] }} </td>
+        </tr>
+
 {% endfor %}
-    </table>
+        </table>
 
 <br>
 
@@ -85,6 +94,11 @@
 
 </script>
 
+<div>Average Hash rate: {{ hash_average|round(0, 'ceil') }} </div>
+<div>Average growth rate: {{ growth_rate[0]|round(4, 'ceil') }}</div>
+<div>Predicted hourly rate: {{ growth_rate[1]|round(4, 'ceil') }}</div>
+<div>Predicted daily rate: {{ growth_rate[2]|round(4, 'ceil') }}</div>
+
 <br>
 
 <h3>Network History</h3>
@@ -98,7 +112,7 @@
       <td>{{ row[1] }}</td>
       <td>{{ row[2] }}</td>
       <td>{{ row[3] }}</td>
-      <td>{{ row[4] }}</td>
+      <td>{{ row[4][11:16] }}</td>
     </tr>
 {% endfor %}
     </table>
