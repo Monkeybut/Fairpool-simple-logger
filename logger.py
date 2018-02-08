@@ -20,11 +20,11 @@ import json
 import datetime
 
 # Select the outputs you would like
-sqlitedb_output = False
+sqlitedb_output = True
 csv_output = True
 
 #Enter Address between two hashes 'ADDRESS'
-address = 'FILL IN ADDRESS HERE'
+address = 'Fill Address Here'
 
 # API address
 api_address = 'https://sumo.fairpool.cloud/api/network'
@@ -69,10 +69,6 @@ class mining_history_db():
     def __init__(self):
         if not os.path.isfile('mining_history.db'):
             self.create()
-        self.conn = sqlite3.connect('mining_history.db')
-        self.conn.row_factory = sqlite3.Row
-        self.cursor = self.conn.cursor()
-
 
     def create(self):
         print("Creating new DB")
@@ -83,34 +79,48 @@ class mining_history_db():
 		             (id INTEGER PRIMARY KEY, difficulty text, hashrate int, blockheight int, time text)''')
 
         c.execute('''CREATE TABLE miners
-        		             (id INTEGER PRIMARY KEY, miner text, hashrate text, coins text, time text)''')
+        		             (id INTEGER PRIMARY KEY, miner text, hashrate int, coins real, time text)''')
 
         # Save (commit) the changes
         conn.commit()
 
         # We can also close the connection if we are done with it.
         # Just be sure any changes have been committed or they will be lost.
+        c.close()
         conn.close()
 
     def insert_network(self, network):
         time = datetime.datetime.now()
+        self.conn = sqlite3.connect('mining_history.db')
+        self.conn.row_factory = sqlite3.Row
+        self.cursor = self.conn.cursor()
         # Insert a row of data
         self.cursor.execute("INSERT INTO network VALUES (?,?,?,?,?)",
                             (None, str(network[0]), str(network[1]), str(network[2]), time))
 
         # Save (commit) the changes
         self.conn.commit()
+        self.cursor.close()
+        self.conn.close()
+        print('update network db')
+
         return True
 
 
     def insert_miner(self, miner):
         time = datetime.datetime.now()
+        self.conn = sqlite3.connect('mining_history.db')
+        self.conn.row_factory = sqlite3.Row
+        self.cursor = self.conn.cursor()
         # Insert a row of data
         self.cursor.execute("INSERT INTO miners VALUES (?, ?,?,?,?)",
                             (None, str(miner[0]), str(miner[1]), str(miner[2]), time))
 
         # Save (commit) the changes
         self.conn.commit()
+        self.cursor.close()
+        self.conn.close()
+        print('update miner db')
         return True
 
 
