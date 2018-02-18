@@ -90,38 +90,45 @@ class mining_history_db():
         conn.close()
 
     def insert_network(self, network):
-        time = datetime.datetime.now()
-        self.conn = sqlite3.connect('mining_history.db')
-        self.conn.row_factory = sqlite3.Row
-        self.cursor = self.conn.cursor()
-        # Insert a row of data
-        self.cursor.execute("INSERT INTO network VALUES (?,?,?,?,?)",
-                            (None, str(network[0]), str(network[1]), str(network[2]), time))
-
-        # Save (commit) the changes
-        self.conn.commit()
-        self.cursor.close()
-        self.conn.close()
-        print('update network db')
+        try:
+            time = datetime.datetime.now()
+            self.conn = sqlite3.connect('mining_history.db')
+            self.conn.row_factory = sqlite3.Row
+            self.cursor = self.conn.cursor()
+            # Insert a row of data
+            self.cursor.execute("INSERT INTO network VALUES (?,?,?,?,?)",
+                                (None, str(network[0]), str(network[1]), str(network[2]), time))
+    
+            # Save (commit) the changes
+            self.conn.commit()
+            self.cursor.close()
+            self.conn.close()
+            print('updated network db')
+        except Exception:
+            print("Insert Network Fail")
+            
 
         return True
 
 
     def insert_miner(self, miner):
-        time = datetime.datetime.now()
-        self.conn = sqlite3.connect('mining_history.db')
-        self.conn.row_factory = sqlite3.Row
-        self.cursor = self.conn.cursor()
-        # Insert a row of data
-        self.cursor.execute("INSERT INTO miners VALUES (?, ?,?,?,?)",
-                            (None, str(miner[0]), str(miner[1]), str(miner[2]), time))
-
-        # Save (commit) the changes
-        self.conn.commit()
-        self.cursor.close()
-        self.conn.close()
-        print('update miner db')
-        return True
+        try:
+            time = datetime.datetime.now()
+            self.conn = sqlite3.connect('mining_history.db')
+            self.conn.row_factory = sqlite3.Row
+            self.cursor = self.conn.cursor()
+            # Insert a row of data
+            self.cursor.execute("INSERT INTO miners VALUES (?, ?,?,?,?)",
+                                (None, str(miner[0]), str(miner[1]), str(miner[2]), time))
+    
+            # Save (commit) the changes
+            self.conn.commit()
+            self.cursor.close()
+            self.conn.close()
+            print('update miner db')
+            return True
+        except:
+            pass
 
 
 class mining_csv():
