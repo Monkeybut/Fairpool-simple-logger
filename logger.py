@@ -88,6 +88,7 @@ class mining_history_db():
         # Just be sure any changes have been committed or they will be lost.
         c.close()
         conn.close()
+        self.cursor.close()
 
     def insert_network(self, network):
         try:
@@ -129,6 +130,10 @@ class mining_history_db():
             return True
         except:
             pass
+
+
+    def close_db(self):
+        conn.close()
 
 
 class mining_csv():
@@ -194,3 +199,4 @@ if sqlitedb_output == True:
 if csv_output == True:
     miningcsv.write_miner(miner_data)
     miningcsv.write_network(network_data)
+
